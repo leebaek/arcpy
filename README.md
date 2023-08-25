@@ -1,2 +1,2 @@
-# arcpy
-arcpy study
+# Arcpy
+Arcpy study
