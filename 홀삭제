@@ -1,0 +1,27 @@
+import arcpy
+import os
+
+arcpy.env.overwriteOutput = True
+
+# 좌표정보
+sr = arcpy.Describe('layer').spatialReference
+
+with arcpy.da.UpdateCursor('layer','SHAPE@')as cursor:
+    for row in cursor:
+        arr = arcpy.Array()
+        # 폴리곤 지오메트리 read
+        for i in range(row[0].partCount):
+            part = row[0].getPart(i)
+            arcpy.AddMessage('-- part '+str(i))
+            for pt in part:
+                if pt == None: # hole polygon 은 None 반환
+                    break 
+                else:
+                    arcpy.AddMessage(str(pt))
+                    arr.add(pt) # 지오메트리 array에 추가
+                    
+        poly = arcpy.Polygon(arr,sr) # 폴리곤 지오메트리 생성
+        row[0] = poly
+        cursor.updateRow(row) # 형상 업데이트
+
+arcpy.RefreshActiveView()
