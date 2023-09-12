@@ -2,7 +2,7 @@
 ### arcpy로 좌표변환하기
 import arcpy
 
-# 좌표변환 할 shp파일 변수 설정
+# 좌표변환 할 shp파일 변수
 input_features = r'C:\WORK\Arcpy_study\Arcpy_jibeon\AL_11_D002_20230902.shp'
 
 # output파일 변수 설정
